@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level Up Store - BD II</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { padding-top: 20px; background-color: #f8f9fa; }
+        .card-jogo { transition: transform 0.2s; }
+        .card-jogo:hover { transform: scale(1.02); }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="m-0">Level Up Store (Firebase)</h1>
+            <button class="btn btn-primary position-relative" data-bs-toggle="modal" data-bs-target="#modalCarrinho">
+                🛒 Carrinho
+                <span id="contagemCarrinho" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    0
+                </span>
+            </button>
+        </div>
+
+        <div class="alert alert-info d-flex justify-content-between align-items-center">
+            <span id="statusUsuario">Modo Atual: <strong>Visitante</strong></span>
+            <div>
+                <button class="btn btn-outline-primary btn-sm" onclick="mudarModo('admin')">Simular Admin</button>
+                <button class="btn btn-outline-secondary btn-sm" onclick="mudarModo('user')">Simular Cliente</button>
+            </div>
+        </div>
+
+        <div id="painelAdmin" class="card p-3 mb-4 d-none">
+            <h4>Adicionar Novo Jogo</h4>
+            <form id="formJogo">
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="text" id="titulo" class="form-control" placeholder="Título do Jogo" required>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" id="preco" step="0.01" class="form-control" placeholder="Preço (R$)" required>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" id="genero" class="form-control" placeholder="Gênero">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-success w-100">Salvar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0">🔍</span>
+                    <input type="text" id="campoBusca" class="form-control border-start-0"
+                        placeholder="Buscar jogo por nome...">
+                </div>
+            </div>
+        </div>
+
+        <div id="listaJogos" class="row">
+            <p class="text-center text-muted">Carregando jogos...</p>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalCarrinho" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Seu Carrinho de Compras</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Jogo</th>
+                                <th>Preço</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody id="itensCarrinho">
+                            </tbody>
+                    </table>
+                    <div class="text-end">
+                        <h4>Total: <span id="totalCarrinho" class="text-success">R$ 0,00</span></h4>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-success" onclick="finalizarCompraTotal()">Finalizar Tudo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+        // COLOQUE SUA CONFIGURAÇÃO AQUI (A MESMA DE ANTES)
+        const firebaseConfig = {
+            apiKey: "AIzaSyBZEW-zhqmThRWeKeYVL2QDpjfcjq6zLSU",
+            authDomain: "projetofinal-lojadejogos-d607f.firebaseapp.com",
+            projectId: "projetofinal-lojadejogos-d607f",
+            storageBucket: "projetofinal-lojadejogos-d607f.firebasestorage.app",
+            messagingSenderId: "722453792468",
+            appId: "1:722453792468:web:594a993d53271587065d41"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.db = db;
+        window.collection = collection;
+        window.addDoc = addDoc;
+        window.getDocs = getDocs;
+        window.doc = doc;
+        window.deleteDoc = deleteDoc;
+        window.updateDoc = updateDoc;
+
+        const evento = new Event('firebase-pronto');
+        window.dispatchEvent(evento);
+    </script>
+
+    <script src="app.js"></script>
+</body>
+</html>

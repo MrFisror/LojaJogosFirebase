@@ -1,4 +1,4 @@
-// --- VARIÁVEIS GLOBAIS ---
+// VARIÁVEIS GLOBAIS 
 const formJogo = document.getElementById('formJogo');
 const painelAdmin = document.getElementById('painelAdmin');
 const btnSalvar = formJogo.querySelector('button[type="submit"]');
@@ -7,9 +7,6 @@ let idEdicao = null;
 let carrinho = []; 
 let isUserAdmin = false; // Controle global de admin
 
-// ==========================================
-// 1. SISTEMA DE AUTENTICAÇÃO (LOGIN/LOGOUT)
-// ==========================================
 
 // Monitora se o usuário entrou ou saiu
 function iniciarAuth() {
@@ -19,11 +16,9 @@ function iniciarAuth() {
         const statusUsuario = document.getElementById('statusUsuario');
 
         if (user) {
-            // -- USUÁRIO LOGADO --
             btnLoginUI.classList.add('d-none');
             btnLogoutUI.classList.remove('d-none');
             
-            // Verifica se é o ADMIN
             if (user.email === 'admin@loja.com') {
                 isUserAdmin = true;
                 painelAdmin.classList.remove('d-none');
@@ -34,7 +29,6 @@ function iniciarAuth() {
                 statusUsuario.innerHTML = `Olá, <strong>Cliente</strong> (${user.email})`;
             }
         } else {
-            // -- DESLOGADO --
             isUserAdmin = false;
             btnLoginUI.classList.remove('d-none');
             btnLogoutUI.classList.add('d-none');
@@ -42,7 +36,6 @@ function iniciarAuth() {
             statusUsuario.innerHTML = `Usuário: <strong>Visitante</strong>`;
         }
         
-        // Atualiza os botões de editar/excluir nos cards que já estão na tela
         atualizarVisualizacaoAdmin();
     });
 }
@@ -91,10 +84,6 @@ document.getElementById('btnLogoutUI').addEventListener('click', async () => {
     }
 });
 
-
-// ==========================================
-// 2. LÓGICA DO CARRINHO
-// ==========================================
 
 window.adicionarAoCarrinho = function(titulo, preco) {
     carrinho.push({ titulo, preco });
@@ -152,9 +141,7 @@ window.finalizarCompraTotal = function() {
 }
 
 
-// ==========================================
-// 3. CRUD (CREATE, READ, UPDATE, DELETE)
-// ==========================================
+
 
 // CREATE e UPDATE
 formJogo.addEventListener('submit', async (e) => {
@@ -222,7 +209,6 @@ async function carregarJogos() {
 
         if(querySnapshot.empty) listaJogos.innerHTML = '<p class="text-center w-100">Nenhum jogo cadastrado.</p>';
         
-        // Garante que os botões apareçam se o admin já estiver logado
         atualizarVisualizacaoAdmin();
 
     } catch (erro) {
@@ -264,7 +250,6 @@ function cancelarEdicao() {
 function atualizarVisualizacaoAdmin() {
     const botoesAdmin = document.querySelectorAll('.grupo-admin');
     botoesAdmin.forEach(div => {
-        // Usa a variável global definida pelo Auth
         if (isUserAdmin) {
             div.classList.remove('d-none');
         } else {
@@ -285,9 +270,7 @@ campoBusca.addEventListener('input', function() {
     });
 });
 
-// ==========================================
-// 4. INICIALIZAÇÃO
-// ==========================================
+
 // Expor funções necessárias
 window.carregarJogos = carregarJogos;
 window.iniciarAuth = iniciarAuth;

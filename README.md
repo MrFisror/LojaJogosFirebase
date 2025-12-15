@@ -2,16 +2,17 @@
 
 > Projeto acadêmico desenvolvido para a disciplina de Banco de Dados II do curso de Sistemas de Informação - IF Goiano (Campus Urutaí).
 
-![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=FINALIZADO&color=GREEN&style=for-the-badge)
 ![Badge Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase)
 ![Badge JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![Badge HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![Badge CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 ![Badge Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
 
 ## 💻 Sobre o Projeto
 
 A **Level Up Store** é uma aplicação web que simula uma loja de jogos digitais. O objetivo principal foi implementar um sistema **CRUD completo** (Create, Read, Update, Delete) utilizando um banco de dados **NoSQL (Cloud Firestore)** e sistema de **Autenticação Real**.
 
-O projeto demonstra conceitos de arquitetura *Serverless*, manipulação de DOM, consumo de APIs e Controle de Acesso Baseado em Papéis (RBAC).
+Este projeto consiste no desenvolvimento de um site seguindo os requisitos propostos pela professora: (Faça um CRUD em  java, web ou android  utilizando o FIREBASE)
 
 ---
 

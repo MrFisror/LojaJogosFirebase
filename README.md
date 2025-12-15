@@ -10,9 +10,9 @@
 
 ## 💻 Sobre o Projeto
 
-A **Level Up Store** é uma aplicação web que simula uma loja de jogos digitais. O objetivo principal foi implementar um sistema **CRUD completo** (Create, Read, Update, Delete) utilizando um banco de dados **NoSQL (Cloud Firestore)** e sistema de **Autenticação Real**.
+Este projeto consiste no desenvolvimento de uma aplicação seguindo os requisitos propostos pela professora: (Faça um CRUD em  java, web ou android  utilizando o FIREBASE)
 
-Este projeto consiste no desenvolvimento de um site seguindo os requisitos propostos pela professora: (Faça um CRUD em  java, web ou android  utilizando o FIREBASE)
+A **Level Up Store** é uma aplicação web que simula uma loja de jogos digitais. O objetivo principal foi implementar um sistema **CRUD completo** (Create, Read, Update, Delete) utilizando um banco de dados **NoSQL (Cloud Firestore)**.
 
 ---
 
@@ -53,18 +53,3 @@ Este projeto consiste no desenvolvimento de um site seguindo os requisitos propo
 - **Back-end as a Service (BaaS):** Google Firebase.
   - **Firestore:** Banco de Dados NoSQL.
   - **Authentication:** Gestão de usuários.
-
----
-
-## 📦 Como Rodar o Projeto
-
-Como o projeto utiliza **Módulos JavaScript (`type="module"`)**, ele precisa ser executado através de um servidor HTTP local para evitar erros de CORS.
-
-### Pré-requisitos
-- Visual Studio Code (recomendado).
-- Extensão **Live Server** instalada no VS Code.
-
-### Passo a Passo
-1. Clone este repositório:
-```bash
-git clone [https://github.com/SEU-USUARIO/Level-Up-Store.git](https://github.com/SEU-USUARIO/Level-Up-Store.git)

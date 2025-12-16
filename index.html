@@ -53,16 +53,8 @@
             box-shadow: 0 10px 20px rgba(13, 110, 253, 0.15); 
         }
 
-        /* --- VISIBILIDADE DOS BOTÕES NOS CARDS --- */
-        /* Isso controla APENAS os botões pequenos de editar/excluir nos cards */
-        .card-admin-btns {
-            display: none !important;
-        }
-
-        /* Se o body tiver a classe modo-admin, os botões aparecem */
-        body.modo-admin .card-admin-btns {
-            display: flex !important;
-        }
+        .card-admin-btns { display: none !important; }
+        body.modo-admin .card-admin-btns { display: flex !important; }
     </style>
 </head>
 
@@ -75,6 +67,11 @@
             </h1>
             
             <div class="d-flex align-items-center gap-2">
+                
+                <button id="btnHistoricoUI" class="btn btn-outline-secondary fw-bold d-none" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="carregarHistorico()">
+                    <i class="bi bi-clock-history"></i> Meus Pedidos
+                </button>
+
                 <div id="areaAuth">
                     <button id="btnLoginUI" class="btn btn-outline-primary fw-bold" data-bs-toggle="modal" data-bs-target="#modalLogin">
                         <i class="bi bi-person-circle"></i> Login
@@ -93,10 +90,19 @@
             </div>
         </div>
 
+        <div class="alert alert-light shadow-sm d-flex justify-content-between align-items-center border-0">
+            <span id="statusUsuario" class="text-muted"><i class="bi bi-circle-fill text-secondary small me-2"></i>Visitante</span>
+        </div>
+
         <div id="painelAdmin" class="card p-4 mb-4 bg-white border border-primary border-opacity-25 d-none">
-            <div class="d-flex align-items-center gap-2 mb-3">
-                <i class="bi bi-shield-lock-fill text-primary fs-4"></i>
-                <h5 class="text-primary fw-bold m-0" style="font-family: 'Orbitron', sans-serif;">ADMIN DASHBOARD</h5>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-shield-lock-fill text-primary fs-4"></i>
+                    <h5 class="text-primary fw-bold m-0" style="font-family: 'Orbitron', sans-serif;">ADMIN DASHBOARD</h5>
+                </div>
+                <button class="btn btn-outline-primary btn-sm fw-bold" data-bs-toggle="modal" data-bs-target="#modalVendas" onclick="carregarVendas()">
+                    <i class="bi bi-receipt"></i> Ver Todas Vendas
+                </button>
             </div>
             
             <form id="formJogo">
@@ -175,6 +181,57 @@
         </div>
     </div>
 
+    <div class="modal fade" id="modalHistorico" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold"><i class="bi bi-clock-history"></i> Meus Pedidos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Itens</th>
+                                    <th>Total Pago</th>
+                                </tr>
+                            </thead>
+                            <tbody id="listaHistorico"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalVendas" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Relatório Geral (Admin)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Cliente</th>
+                                    <th>Itens</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="listaVendas"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="modalLogin" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow-lg">
@@ -206,7 +263,8 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+        // ATENÇÃO: Adicionei 'where' na importação abaixo
+        import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, updateDoc, query, orderBy, where } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } 
         from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 
@@ -232,7 +290,8 @@
         window.deleteDoc = deleteDoc;
         window.updateDoc = updateDoc;
         window.query = query;      
-        window.orderBy = orderBy;  
+        window.orderBy = orderBy;
+        window.where = where; // EXPORTANDO O WHERE
         
         window.signInWithEmailAndPassword = signInWithEmailAndPassword;
         window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;

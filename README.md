@@ -14,6 +14,8 @@ Este projeto consiste no desenvolvimento de uma aplicação seguindo os requisit
 
 A **Level Up Store** é uma aplicação web que simula uma loja de jogos digitais. O objetivo principal foi implementar um sistema **CRUD completo** (Create, Read, Update, Delete) utilizando um banco de dados **NoSQL (Cloud Firestore)**.
 
+https://projetofinal-lojadejogos-d607f.web.app/
+
 ---
 
 ## ⚙️ Funcionalidades
